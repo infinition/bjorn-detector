@@ -33,7 +33,7 @@ The red dot is moving around the radar when he looks for Bjorn.
 
 Run the application with:
 ```bash
-python main.py
+python Bjorn_Detector.py
 ```
 
 
