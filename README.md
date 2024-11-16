@@ -70,6 +70,7 @@ The red dot is moving around the radar when he looks for Bjorn.
 4. **Upgrade pip**
 
    ```bash
+   python -m ensurepip
    pip install --upgrade pip
    ```
 
@@ -89,14 +90,6 @@ The red dot is moving around the radar when he looks for Bjorn.
    
 ## 🚀 Usage
 
-### 📦 Initialization
-
-1. Prepare Input HTML Files:
-   Place your HTML files that you want to translate into the input directory (or your specified input directory).
-
-2. Configure Settings:
-   Ensure your environment variables are set, or prepare to pass configurations via command-line arguments.
-
 ### 🕵️ Scan for Bjorn
 
 Run the main script:
@@ -105,7 +98,7 @@ Run the main script:
 python bjorn-detector.py
 ```
 
-This will process all HTML files in the input directory and generate translated versions in the output directory.
+This will scan your network and find **Bjorn** device, One-Click **Bjorn** to start SSH session.
 
 ### 📟 Command-Line Arguments
 
@@ -125,7 +118,7 @@ python bjorn-detector.py
 
 ## 📊 Logging
 
-Logs are maintained in crypto_controller.log with rotating file handlers to prevent excessive file sizes.
+Logs are maintained in logs/bjorn-detector.log with rotating file handlers to prevent excessive file sizes.
 
     Log Levels:
         INFO: General operational messages.
