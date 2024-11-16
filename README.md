@@ -1,10 +1,11 @@
 # 🧭 Bjorn Detector
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
-[![Reddit](https://img.shields.io/badge/Reddit-Bjorn__CyberViking-orange?style=for-the-badge&logo=reddit)](https://www.reddit.com/r/Bjorn_CyberViking)
-[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord)](https://discord.com/invite/B3ZH9taVfT)
 ![Status](https://img.shields.io/badge/Status-Development-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![Reddit](https://img.shields.io/badge/Reddit-Bjorn__CyberViking-orange?style=for-the-badge&logo=reddit)](https://www.reddit.com/r/Bjorn_CyberViking)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord)](https://discord.com/invite/B3ZH9taVfT)
 
 an application that detects [Bjorn](https://github.com/infinition/bjorn) device on the local network, displays its IP address, and allows you to initiate an SSH session with a single click on Bjorn Icon.
 The red dot is moving around the radar when he looks for Bjorn.
