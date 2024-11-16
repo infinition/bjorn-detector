@@ -97,7 +97,7 @@ The red dot is moving around the radar when he looks for Bjorn.
 2. Configure Settings:
    Ensure your environment variables are set, or prepare to pass configurations via command-line arguments.
 
-### Scan for Bjorn
+### 🕵️ Scan for Bjorn
 
 Run the main script:
 
@@ -107,7 +107,7 @@ python bjorn-detector.py
 
 This will process all HTML files in the input directory and generate translated versions in the output directory.
 
-### Command-Line Arguments
+### 📟 Command-Line Arguments
 
 You can customize the behavior using the following arguments:
 
