@@ -94,7 +94,7 @@ def parse_arguments() -> argparse.Namespace:
     )
     parser.add_argument(
         "--identity-file", "--i",
-        type=int,
+        type=str,
         help="Identity file used to connect device if set on install. Defaults to None.",
     )
     parser.add_argument(

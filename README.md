@@ -113,7 +113,7 @@ You can customize the behavior using the following arguments:
    python bjorn-detector.py --timeout 10
    ```
 
-- `--identity-file, --i: Identity file used to connect device if set on install. Defaults to None..`
+- `--identity-file, --i: Identity file used to connect device if set on install. Defaults to None.`
 
    ```bash
    python bjorn-detector.py --identity-file identity-file.[ppk]
