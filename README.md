@@ -1,6 +1,7 @@
 # 🧭 Bjorn Detector
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
+![Python3](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Development-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -116,8 +117,10 @@ You can customize the behavior using the following arguments:
 - `--identity-file, --i: Identity file used to connect device if set on install. Defaults to None.`
 
    ```bash
-   python bjorn-detector.py --identity-file identity-file.[ppk]
+   python bjorn-detector.py --identity-file identity-file.pem
    ```
+  
+  - **Must be a Valid OpenSSH Key File**
 
 - `--log-level: Set the logging level (INFO or DEBUG).`
 
