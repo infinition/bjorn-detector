@@ -1,21 +1,25 @@
 # 🧭 Bjorn Detector
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
+![Python3](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Development-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Reddit](https://img.shields.io/badge/Reddit-Bjorn__CyberViking-orange?style=for-the-badge&logo=reddit)](https://www.reddit.com/r/Bjorn_CyberViking)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord)](https://discord.com/invite/B3ZH9taVfT)
 
-an application that detects [Bjorn](https://github.com/infinition/bjorn) device on the local network, displays its IP address, and allows you to initiate an SSH session with a single click on Bjorn Icon.
-The red dot is moving around the radar when he looks for Bjorn.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/182f82f0-5c3a-48a9-a75e-37b9cfa2263a" alt="ezgif-1-a310f5fe8f" width="160">
+</p>
+
+**Bjorn Detector** detects [Bjorn](https://github.com/infinition/bjorn) device on the local network, displays its IP address, and allows you to initiate an SSH session with a single click on Bjorn Icon.
+The red dot is moving around the radar while he looks for Bjorn.
 
 ## 📚 Table of Contents
 
 - [Features](#-features)
 - [Installation](#-installation)
 - [Usage](#-usage)
-  - [Initialization](#-initialization)
 - [Logging](#-logging)
 - [License](#-license)
 - [Contact](#-contact)
@@ -90,7 +94,7 @@ The red dot is moving around the radar when he looks for Bjorn.
    
 ## 🚀 Usage
 
-### 🕵️ Scan for Bjorn
+### 🕵️ Scan for Bjorn Device
 
 Run the main script:
 
@@ -104,11 +108,25 @@ This will scan your network and find **Bjorn** device, One-Click **Bjorn** to st
 
 You can customize the behavior using the following arguments:
 
-`--log-level: Set the logging level (INFO or DEBUG).`
+- `--timeout: timeout in seconds. Must be between 10 to 300.`
 
-```bash
-python bjorn-detector.py --log-level DEBUG
-```
+   ```bash
+   python bjorn-detector.py --timeout 10
+   ```
+
+- `--identity-file, --i: Identity file used to connect device if set on install. Defaults to None.`
+
+   ```bash
+   python bjorn-detector.py --identity-file identity-file.pem
+   ```
+  
+  - **Must be a Valid OpenSSH Key File**
+
+- `--log-level: Set the logging level (INFO or DEBUG).`
+
+   ```bash
+   python bjorn-detector.py --log-level DEBUG
+   ```
 
 ### 📝 Example Usage
 

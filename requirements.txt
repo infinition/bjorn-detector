@@ -1,1 +1,6 @@
+# PyQT6
 PyQt6>=6.7.0
+
+# PyDantic
+pydantic[email]>=2.9.1
+pydantic-settings>=2.0.0
