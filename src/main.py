@@ -1,23 +1,50 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QMenu, QLabel
-from PyQt6.QtCore import Qt, QPropertyAnimation, QPoint, QTimer, QEasingCurve, QRect
-from PyQt6.QtGui import QPainter, QColor, QAction, QPixmap, QIcon
-from PyQt6.QtMultimedia import QSoundEffect
-from PyQt6.QtCore import QUrl
-import sys
-import subprocess
-import platform
 import argparse
+import ctypes
 import logging
-import time
 from logging.handlers import RotatingFileHandler
 import math
-import socket
 import os
+import platform
+import socket
+import subprocess
+import sys
+import time
+from PyQt6.QtCore import (
+    Qt,
+    QPropertyAnimation,
+    QPoint,
+    QTimer,
+    QEasingCurve,
+    QRect,
+    pyqtSignal,
+    QUrl
+)
+from PyQt6.QtGui import (
+    QPainter,
+    QColor,
+    QAction,
+    QPixmap,
+    QIcon
+)
+from PyQt6.QtMultimedia import QSoundEffect
+from PyQt6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QMainWindow,
+    QVBoxLayout,
+    QMenu,
+    QLabel
+)
+from src.config import settings
 
-BJORN_ICON = "src/static/images/icon.png"
-BJORN_IMAGE = "src/static/images/bjorn.png"
-BJORN_BACKGROUND = "src/static/images/background.png"
-BJORN_SOUND = "src/static/sounds/sound.wav"
+
+app_id = 'bjorn-cyberviking.bjorn.detector'
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
+
+BJORN_ICON = "src//static//images//icon.ico"
+BJORN_IMAGE = "src//static//images//bjorn.png"
+BJORN_BACKGROUND = "src//static//images//background.png"
+BJORN_SOUND = "src//static//sounds//sound.wav"
 
 # Configure logger
 logger = logging.getLogger("__main__")
@@ -66,6 +93,18 @@ def parse_arguments() -> argparse.Namespace:
         description="One-Click SSH access to your bjorn device in a radar style."
     )
     parser.add_argument(
+        "--identity-file", "--i",
+        type=int,
+        help="Identity file used to connect device if set on install. Defaults to None.",
+    )
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        choices=range(10,300),
+        metavar="[10-300]",
+        help="timeout in seconds. Defaults to 50 seconds. Must be between 10 to 300.",
+    )
+    parser.add_argument(
         "--log-level",
         choices=["INFO", "DEBUG"],
         default="INFO",
@@ -75,14 +114,14 @@ def parse_arguments() -> argparse.Namespace:
 
 
 class OrbitIcon(QLabel):
-    def __init__(self, parent=None, main_window=None):
+    def __init__(self, parent=None, main_window=None, id_file=None):
         super().__init__(parent)
         self.main_window = main_window
         self.setFixedSize(30, 30)
         self.angle = 0
         self.is_alive = False
         self.is_animating = False
-
+        self.id_file = id_file
         self.sound = QSoundEffect()
         self.sound.setSource(QUrl.fromLocalFile(BJORN_SOUND))
 
@@ -154,11 +193,15 @@ class OrbitIcon(QLabel):
                 self.is_animating = False
 
     def launch_ssh(self):
+        i_complement = ""
         try:
             bjorn_ip = socket.gethostbyname("bjorn.home")
             logger.debug(f"bjorn.home IP Address: {bjorn_ip}")
 
             logger.debug(f"Platform: {platform.system()}")
+
+            if self.id_file is not None:
+                i_complement = f"-i {self.id_file}"
 
             if platform.system() == "Windows":
                 subprocess.Popen(
@@ -168,7 +211,7 @@ class OrbitIcon(QLabel):
                         "start",
                         "cmd",
                         "/k",
-                        f"echo bjorn.home IP Address : {bjorn_ip} && ssh bjorn@bjorn.home",
+                        f"echo bjorn.home IP Address : {bjorn_ip} && ssh {i_complement} bjorn@bjorn.home",
                     ]
                 )
             else:
@@ -178,7 +221,7 @@ class OrbitIcon(QLabel):
                         "-e",
                         "bash",
                         "-c",
-                        f"echo bjorn.home IP Address : {bjorn_ip}; ssh bjorn@bjorn.home",
+                        f"echo bjorn.home IP Address : {bjorn_ip}; ssh {i_complement} bjorn@bjorn.home",
                     ]
                 )
 
@@ -188,7 +231,9 @@ class OrbitIcon(QLabel):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    activity_occurred = pyqtSignal()
+
+    def __init__(self, id_file=None):
         super().__init__()
         self.offset = None
         self.dragging = None
@@ -197,6 +242,7 @@ class MainWindow(QMainWindow):
         self.orbit_icon = None
         self.circle_widget = None
         self.orbit_timer = None
+        self.id_file = id_file
         self.init_ui()
 
     def init_ui(self):
@@ -216,7 +262,7 @@ class MainWindow(QMainWindow):
             200, 200, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation
         )
 
-        self.orbit_icon = OrbitIcon(self.circle_widget, main_window=self)
+        self.orbit_icon = OrbitIcon(self.circle_widget, main_window=self, id_file=self.id_file)
 
         self.orbit_timer = QTimer(self)
         self.orbit_timer.timeout.connect(self.update_orbit)
@@ -265,6 +311,7 @@ class MainWindow(QMainWindow):
             socket.gethostbyname("bjorn.home")
             if not self.orbit_icon.is_alive:
                 self.orbit_icon.set_status(True)
+            self.activity_occurred.emit()
             self.orbit_icon.show()
         except socket.gaierror:
             if self.orbit_icon.is_alive:
@@ -292,9 +339,12 @@ def main():
     Main function to run the bjorn detector script.
     """
     start_time = time.time()
+    timeout_occurred = [False]
 
     args = parse_arguments()
     configure_logger(args.log_level)
+
+    timeout = args.timeout if args.timeout else settings.TIMEOUT
 
     required_files = [BJORN_ICON, BJORN_IMAGE, BJORN_BACKGROUND, BJORN_SOUND]
     for file in required_files:
@@ -303,11 +353,27 @@ def main():
             return
 
     app = QApplication(sys.argv)
+    app.setApplicationName("BjornDetector")
+    app.setApplicationDisplayName("Bjorn Detector")
+    app.setOrganizationName("BjornCyberviking")
+    app.setWindowIcon(QIcon(BJORN_ICON))
+
+    def handle_timeout():
+        logger.warning(f"Timeout reached. No response after {timeout} seconds.")
+        timeout_occurred[0] = True
+        app.quit()
+
+    timer = QTimer()
+    timer.setSingleShot(True)
+    timer.timeout.connect(handle_timeout)
+    timer.start(timeout * 1000)
 
     try:
-        window = MainWindow()
+        window = MainWindow(id_file=args.identity_file)
+        window.activity_occurred.connect(timer.stop)
         window.show()
-        sys.exit(app.exec())
+        app.exec()
+
     except Exception as e:
         logger.error(f"Cant perform operation, Caused by: {e}")
     finally:

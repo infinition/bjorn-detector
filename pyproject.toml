@@ -2,7 +2,7 @@
 name = "bjorn-detector"
 version = "1.0.1"
 description = "One-Click SSH access to your bjorn device in a radar style."
-# authors =
+authors = ["infinition <bjorn-cyberviking@outlook.com>"]
 license = "MIT"
 readme = "README.md"
 package-mode = false
@@ -14,6 +14,8 @@ idna="^3.0"
 certifi="^2024.8.30"
 bump2version="^1.0.0"
 PyQt6="^6.7.0"
+pydantic = { version = ">=2.9.1" }
+pydantic-settings = ">=2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.0"
