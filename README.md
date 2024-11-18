@@ -7,7 +7,9 @@
 [![Reddit](https://img.shields.io/badge/Reddit-Bjorn__CyberViking-orange?style=for-the-badge&logo=reddit)](https://www.reddit.com/r/Bjorn_CyberViking)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord)](https://discord.com/invite/B3ZH9taVfT)
 
-![ezgif-1-a310f5fe8f](https://github.com/user-attachments/assets/182f82f0-5c3a-48a9-a75e-37b9cfa2263a)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/182f82f0-5c3a-48a9-a75e-37b9cfa2263a" alt="ezgif-1-a310f5fe8f" width="160">
+</p>
 
 **Bjorn Detector** detects [Bjorn](https://github.com/infinition/bjorn) device on the local network, displays its IP address, and allows you to initiate an SSH session with a single click on Bjorn Icon.
 The red dot is moving around the radar while he looks for Bjorn.
