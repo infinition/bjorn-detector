@@ -1,0 +1,47 @@
+---
+# .github/workflows/python.yml
+
+name: Python CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
+      FOLDER_TO_COMPRESS: 'src'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install poetry
+          poetry lock
+          poetry install
+      - name: Format check with Black
+        run: |
+          source venv/bin/activate
+          black --check "${FOLDER_TO_COMPRESS}"/
+        env:
+          REPO_NAME: ${{ env.REPO_NAME }}
+          FOLDER_TO_COMPRESS: ${{ env.FOLDER_TO_COMPRESS }}
+      - name: Lint with Pylint
+        run: |
+          source venv/bin/activate
+          pylint $(git ls-files '*.py')
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libpulse0
+      - name: Test Detector
+        run: |
+          source venv/bin/activate
+          python bjorn-detector.py --help

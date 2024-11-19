@@ -1,0 +1,102 @@
+---
+# .pre-commit-config.yaml
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        types: [yaml]
+        files: \.(yaml)$
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.3.1
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args: [--rcfile=.pylintrc, .]
+        exclude: ^node_modules/
+#  - repo: https://github.com/hadolint/hadolint
+#    rev: v2.13.1-beta
+#    hooks:
+#      - id: hadolint
+#        name: hadolint
+#        entry: hadolint
+#        language: system
+#        types: [dockerfile]
+#        files: ^Dockerfile$
+#  - repo: local
+#    hooks:
+#      - id: yaml-format
+#        name: yaml-format
+#        entry: python scripts/format_yaml/main.py
+#        language: system
+#        types: [yaml]
+#        files: \.(yaml)$
+#        exclude: '.github/.*'
+## WTF this error, TODO: solve yml stuck check
+## # Some additional debug shows errors script cant handle, such as..
+## # # truthy value should be one of [false, true]  (truthy)
+## #  [Special format inside .github folder]
+## # fix line cutter
+##      - id: yml-format
+##        name: yml-format
+##        entry: python scripts/format_yml/main.py
+##        language: system
+##        types: [yaml]
+##        files: \.(yml)$
+##        exclude: '.github/.*'
+##      - id: yamllint
+##        name: yamllint
+##        entry: yamllint
+##        language: system
+##        types: [yaml]
+##        files: \.(yml|yaml)$
+##        exclude: '.github/'
+#      - id: docker-compose
+#        name: docker-compose
+#        entry: python scripts/validate_docker_compose/main.py
+#        language: system
+#        types: [yaml]
+#        files: ^docker-compose(\.dev|\.prod)?\.yml$
+#      - id: validate-commit
+#        name: validate-commit
+#        entry: python scripts/control_commit/main.py --log-level=DEBUG
+#        always_run: true
+#        pass_filenames: false
+#        language: system
+#        stages: [pre-push]
+#      - id: commit-msg-version-check
+#        name: commit-msg-version-check
+#        entry: python scripts/commit_msg_version_bump/main.py --log-level=DEBUG
+#        always_run: true
+#        language: system
+#        pass_filenames: false
+#        # args: [--commit_msg_file, .git/COMMIT_EDITMSG]
+#        stages: [pre-push]
+#      - id: bump-year
+#        name: bump-year
+#        entry: python scripts/bump_year/main.py --log-level=INFO
+#        always_run: true
+#        pass_filenames: false
+#        language: system
+#      - id: generate-changelog
+#        name: generate-changelog
+#        entry: python scripts/generate_changelog/main.py --log-level=INFO
+#        always_run: true
+#        pass_filenames: false
+#        language: system
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        files: \.(markdown|md)$

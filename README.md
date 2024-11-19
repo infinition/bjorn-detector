@@ -29,12 +29,18 @@ The red dot is moving around the radar while he looks for Bjorn.
 - **Automatic Network Detection**: Continuously checks for the device `bjorn.home` on the local network.
 - **Interactive SSH Launcher**: When `bjorn.home` is detected, click the Bjorn icon to automatically launch an SSH terminal connected to Bjorn’s IP address.
 - **IP Display**: Shows the IP address of `bjorn.home` upon detection.
-- **Seamless Bjorn Installation**: Facilitates  installation of [Bjorn](https://github.com/infinition/Bjorn/) by connecting to the device via SSH.
+- **Seamless Bjorn Installation**: Facilitates installation of [Bjorn](https://github.com/infinition/Bjorn/) by connecting to the device via SSH.
 
 ## 📌 Prerequisites
 
 - **Python**: 3.9+
 - **PyQt6**: 6.7.0+
+
+  - **Linux**:
+
+    ```bash
+    sudo apt-get install -y libegl1 libpulse0
+    ```
 
 ## 🛠️ Installation
 
@@ -91,7 +97,7 @@ The red dot is moving around the radar while he looks for Bjorn.
    ```bash
     deactivate
    ```
-   
+
 ## 🚀 Usage
 
 ### 🕵️ Scan for Bjorn Device
@@ -110,23 +116,23 @@ You can customize the behavior using the following arguments:
 
 - `--timeout: timeout in seconds. Must be between 10 to 300.`
 
-   ```bash
-   python bjorn-detector.py --timeout 10
-   ```
+  ```bash
+  python bjorn-detector.py --timeout 10
+  ```
 
 - `--identity-file, --i: Identity file used to connect device if set on install. Defaults to None.`
 
-   ```bash
-   python bjorn-detector.py --identity-file identity-file.pem
-   ```
-  
+  ```bash
+  python bjorn-detector.py --identity-file identity-file.pem
+  ```
+
   - **Must be a Valid OpenSSH Key File**
 
 - `--log-level: Set the logging level (INFO or DEBUG).`
 
-   ```bash
-   python bjorn-detector.py --log-level DEBUG
-   ```
+  ```bash
+  python bjorn-detector.py --log-level DEBUG
+  ```
 
 ### 📝 Example Usage
 
@@ -146,12 +152,17 @@ Logs are maintained in logs/bjorn-detector.log with rotating file handlers to pr
 
 - **Report Issues**: Via GitHub.
 - **Guidelines**:
+
   - Follow ethical guidelines.
   - Document reproduction steps.
   - Provide logs and context.
 
-- **Author**: __infinition__
+- **Author**: **infinition**
 - **GitHub**: [infinition/bjorn-detector](https://github.com/infinition/bjorn-detector)
+
+## 🌠 Stargazers
+
+[![Star History Chart](https://api.star-history.com/svg?repos=infinition/bjorn-detector&type=Date)](https://star-history.com/#infinition/bjorn-detector&Date)
 
 ---
 
