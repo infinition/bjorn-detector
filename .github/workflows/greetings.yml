@@ -2,9 +2,7 @@
 # .github/workflows/greetings.yml
 
 name: Greetings
-
 on: [pull_request, issues]
-
 jobs:
   greeting:
     runs-on: ubuntu-latest
