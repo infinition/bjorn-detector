@@ -24,9 +24,9 @@ from PyQt6.QtMultimedia import QSoundEffect
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QMenu, QLabel
 from src.config import settings
 
-
-app_id = "bjorn-cyberviking.bjorn.detector"
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
+if platform.system() == "Windows":
+    app_id = "bjorn-cyberviking.bjorn.detector"
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
 
 BJORN_ICON = "src//static//images//icon.ico"
 BJORN_IMAGE = "src//static//images//bjorn.png"
