@@ -37,6 +37,10 @@ jobs:
         run: |
           source venv/bin/activate
           pylint $(git ls-files '*.py')
+      - name: Install libEGL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1
       - name: Test Detector
         run: |
           source venv/bin/activate
