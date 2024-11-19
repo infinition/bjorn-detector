@@ -7,7 +7,7 @@ Security Policy for **Bjorn Detector** repository includes all required complian
 We provide security updates for the following versions of our project:
 
 | Version | Status      | Secure |
-| ------- |-------------| ------ |
+| ------- | ----------- | ------ |
 | 1.0.0   | Development | No     |
 
 ## 🛡️ Security Practices

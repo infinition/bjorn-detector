@@ -23,6 +23,7 @@ Please note that all participants in our project are expected to follow our [Cod
    Run the test suite to ensure your changes don’t break any functionality:
 
    - ...
+
 5. **Commit your changes**:
    Use meaningful commit messages that explain what you have done:
 

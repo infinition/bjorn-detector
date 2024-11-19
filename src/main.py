@@ -17,28 +17,15 @@ from PyQt6.QtCore import (
     QEasingCurve,
     QRect,
     pyqtSignal,
-    QUrl
+    QUrl,
 )
-from PyQt6.QtGui import (
-    QPainter,
-    QColor,
-    QAction,
-    QPixmap,
-    QIcon
-)
+from PyQt6.QtGui import QPainter, QColor, QAction, QPixmap, QIcon
 from PyQt6.QtMultimedia import QSoundEffect
-from PyQt6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QMainWindow,
-    QVBoxLayout,
-    QMenu,
-    QLabel
-)
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QMenu, QLabel
 from src.config import settings
 
 
-app_id = 'bjorn-cyberviking.bjorn.detector'
+app_id = "bjorn-cyberviking.bjorn.detector"
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
 
 BJORN_ICON = "src//static//images//icon.ico"
@@ -93,14 +80,15 @@ def parse_arguments() -> argparse.Namespace:
         description="One-Click SSH access to your bjorn device in a radar style."
     )
     parser.add_argument(
-        "--identity-file", "--i",
+        "--identity-file",
+        "--i",
         type=str,
         help="Identity file used to connect device if set on install. Defaults to None.",
     )
     parser.add_argument(
         "--timeout",
         type=int,
-        choices=range(10,300),
+        choices=range(10, 300),
         metavar="[10-300]",
         help="timeout in seconds. Defaults to 50 seconds. Must be between 10 to 300.",
     )
@@ -114,7 +102,12 @@ def parse_arguments() -> argparse.Namespace:
 
 
 class OrbitIcon(QLabel):
+    """
+    Draw red circle on UI
+    """
+
     def __init__(self, parent=None, main_window=None, id_file=None):
+        """Init Method"""
         super().__init__(parent)
         self.main_window = main_window
         self.setFixedSize(30, 30)
@@ -234,6 +227,7 @@ class MainWindow(QMainWindow):
     activity_occurred = pyqtSignal()
 
     def __init__(self, id_file=None):
+        """Init Method"""
         super().__init__()
         self.offset = None
         self.dragging = None
