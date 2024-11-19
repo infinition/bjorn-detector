@@ -37,7 +37,7 @@ jobs:
         run: |
           source venv/bin/activate
           pylint $(git ls-files '*.py')
-      - name: Install libEGL
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libegl1 libpulse0

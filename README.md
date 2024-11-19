@@ -36,6 +36,12 @@ The red dot is moving around the radar while he looks for Bjorn.
 - **Python**: 3.9+
 - **PyQt6**: 6.7.0+
 
+  - **Linux**:
+
+    ```bash
+    sudo apt-get install -y libegl1 libpulse0
+    ```
+
 ## 🛠️ Installation
 
 1. **Clone the Repository:**
@@ -153,6 +159,10 @@ Logs are maintained in logs/bjorn-detector.log with rotating file handlers to pr
 
 - **Author**: **infinition**
 - **GitHub**: [infinition/bjorn-detector](https://github.com/infinition/bjorn-detector)
+
+## 🌠 Stargazers
+
+[![Star History Chart](https://api.star-history.com/svg?repos=infinition/bjorn-detector&type=Date)](https://star-history.com/#infinition/bjorn-detector&Date)
 
 ---
 
