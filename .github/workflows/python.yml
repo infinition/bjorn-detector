@@ -40,7 +40,7 @@ jobs:
       - name: Install libEGL
         run: |
           sudo apt-get update
-          sudo apt-get install -y libegl1
+          sudo apt-get install -y libegl1 libpulse0
       - name: Test Detector
         run: |
           source venv/bin/activate
