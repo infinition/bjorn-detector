@@ -42,13 +42,13 @@ repos:
 #        language: system
 #        types: [yaml]
 #        files: ^docker-compose(\.dev|\.prod)?\.yml$
-#      - id: validate-commit
-#        name: validate-commit
-#        entry: python scripts/control_commit/main.py --log-level=DEBUG
-#        always_run: true
-#        pass_filenames: false
-#        language: system
-#        stages: [pre-push]
+      - id: validate-commit
+        name: validate-commit
+        entry: python scripts/control_commit/main.py --log-level=DEBUG
+        always_run: true
+        pass_filenames: false
+        language: system
+        stages: [pre-push]
       - id: commit-msg-version-check
         name: commit-msg-version-check
         entry: python scripts/commit_msg_version_bump/main.py --log-level=DEBUG
