@@ -134,6 +134,14 @@ You can customize the behavior using the following arguments:
   python bjorn-detector.py --log-level DEBUG
   ```
 
+#### Headless Mode
+
+- `--no-gui: launch detector using non-gui, non-ssh.`
+
+  ```bash
+  python bjorn-detector.py --no-gui
+  ```
+
 ### 📝 Example Usage
 
 ```bash

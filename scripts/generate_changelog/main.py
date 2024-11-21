@@ -84,7 +84,7 @@ def configure_logger(log_level: str) -> None:
 
     # Set up log rotation: max size 5MB, keep 5 backup files
     file_handler = RotatingFileHandler(
-        "changelog_sync.log", maxBytes=5 * 1024 * 1024, backupCount=5
+        "logs/changelog_sync.log", maxBytes=5 * 1024 * 1024, backupCount=5
     )
     console_handler = logging.StreamHandler()
 

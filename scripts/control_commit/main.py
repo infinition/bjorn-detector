@@ -75,7 +75,7 @@ def configure_logger(log_level: str) -> None:
 
     # Set up log rotation: max size 5MB, keep 5 backup files
     file_handler = RotatingFileHandler(
-        "commit_msg_icon_adder.log",
+        "logs/commit_msg_icon_adder.log",
         maxBytes=5 * 1024 * 1024,
         backupCount=5,
         encoding="utf-8",  # Ensure UTF-8 encoding to handle emojis
