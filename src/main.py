@@ -1,6 +1,7 @@
 import argparse
 import ctypes
 import logging
+import threading
 from logging.handlers import RotatingFileHandler
 import math
 import os
@@ -90,7 +91,13 @@ def parse_arguments() -> argparse.Namespace:
         type=int,
         choices=range(10, 300),
         metavar="[10-300]",
-        help="timeout in seconds. Defaults to 50 seconds. Must be between 10 to 300.",
+        help="Timeout in seconds. Defaults to 50 seconds. Must be between 10 to 300.",
+    )
+    parser.add_argument(
+        "--no-gui",
+        action="store_false",
+        dest="gui",
+        help="Starts without a graphics user interface.",
     )
     parser.add_argument(
         "--log-level",
@@ -328,6 +335,55 @@ class MainWindow(QMainWindow):
         self.dragging = False
 
 
+class MainThread(threading.Thread):
+    """
+    Thread to perform checks without launching the GUI.
+    """
+
+    def __init__(self, timeout: int):
+        """
+        Initialize the MainThread.
+
+        Args:
+            timeout (int): Timeout in seconds.
+        """
+        super().__init__()
+        self.timeout = timeout
+        self.last_success_time = time.time()
+        self.timeout_occurred = False
+        self._stop_event = threading.Event()
+
+    def run(self):
+        """Run the thread to perform the check."""
+        try:
+            while not self._stop_event.is_set():
+                try:
+                    bjorn_ip = socket.gethostbyname("bjorn.home")
+                    logger.info(f"Bjorn device is reachable. Bjorn device IP: {bjorn_ip}")
+                    self.last_success_time = time.time()
+                except socket.gaierror:
+                    logger.warning("Bjorn device is not reachable.")
+
+                if time.time() - self.last_success_time > self.timeout:
+                    logger.warning(f"Timeout reached. No response after {self.timeout} seconds.")
+                    self.timeout_occurred = True
+                    break
+
+                time.sleep(30)
+
+        except Exception as e:
+            logger.error(f"An error occurred in MainThread: {e}")
+
+        if self.timeout_occurred:
+            sys.exit(1)
+        else:
+            sys.exit(0)
+
+    def stop(self):
+        """Set the stop event to terminate the thread."""
+        self._stop_event.set()
+
+
 def main():
     """
     Main function to run the bjorn detector script.
@@ -347,33 +403,51 @@ def main():
             return
 
     app = QApplication(sys.argv)
-    app.setApplicationName("BjornDetector")
-    app.setApplicationDisplayName("Bjorn Detector")
-    app.setOrganizationName("BjornCyberviking")
-    app.setWindowIcon(QIcon(BJORN_ICON))
 
     def handle_timeout():
         logger.warning(f"Timeout reached. No response after {timeout} seconds.")
         timeout_occurred[0] = True
-        app.quit()
+        app.quit() if args.gui else exit(1)
 
-    timer = QTimer()
-    timer.setSingleShot(True)
-    timer.timeout.connect(handle_timeout)
-    timer.start(timeout * 1000)
-
-    try:
-        window = MainWindow(id_file=args.identity_file)
-        window.activity_occurred.connect(timer.stop)
-        window.show()
-        app.exec()
-
-    except Exception as e:
-        logger.error(f"Cant perform operation, Caused by: {e}")
-    finally:
-        end_time = time.time()
-        time_elapsed = end_time - start_time
-        logger.debug(f"End. Session time: {time_elapsed:.4f} seconds")
+    if args.gui:
+        try:
+            app.setApplicationName("BjornDetector")
+            app.setApplicationDisplayName("Bjorn Detector")
+            app.setOrganizationName("BjornCyberviking")
+            app.setWindowIcon(QIcon(BJORN_ICON))
+            timer = QTimer()
+            timer.setSingleShot(True)
+            timer.timeout.connect(handle_timeout)
+            timer.start(timeout * 1000)
+            window = MainWindow(id_file=args.identity_file)
+            window.activity_occurred.connect(timer.stop)
+            window.show()
+            app.exec()
+        except Exception as e_gui:
+            logger.error(f"Cant perform operation, Caused by: {e_gui}")
+        finally:
+            end_time = time.time()
+            time_elapsed = end_time - start_time
+            logger.debug(f"End. Session time: {time_elapsed:.4f} seconds")
+    else:
+        logger.debug("Starting in non-GUI mode.")
+        main_thread = MainThread(timeout=timeout)
+        main_thread.start()
+        try:
+            while main_thread.is_alive():
+                main_thread.join(timeout=1)
+        except KeyboardInterrupt:
+            logger.info("SIGTERM Signal Received...")
+            main_thread.stop()
+            main_thread.join()
+            sys.exit(0)
+        except Exception as e_no_gui:
+            logger.error(f"Cannot perform operation in non-GUI mode, caused by: {e_no_gui}")
+            sys.exit(1)
+        finally:
+            end_time = time.time()
+            time_elapsed = end_time - start_time
+            logger.debug(f"End. Session time: {time_elapsed:.4f} seconds")
 
 
 if __name__ == "__main__":
