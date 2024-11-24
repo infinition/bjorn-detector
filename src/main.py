@@ -25,6 +25,11 @@ from PyQt6.QtMultimedia import QSoundEffect
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QMenu, QLabel
 from src.config import settings
 
+# Import notification functions
+from src.utils.telegram.main import send_telegram_message
+from src.utils.discord.main import send_discord_message
+from src.utils.smtp.main import send_smtp_email
+
 if platform.system() == "Windows":
     app_id = "bjorn-cyberviking.bjorn.detector"
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
@@ -180,7 +185,7 @@ class OrbitIcon(QLabel):
         center_y = background_rect.center().y() - self.height() // 2
         self.move(QPoint(center_x, center_y))
 
-    def set_status(self, is_alive):
+    def set_status(self, is_alive: bool):
         if is_alive != self.is_alive:
             self.is_alive = is_alive
             if is_alive:
@@ -226,7 +231,7 @@ class OrbitIcon(QLabel):
                 )
 
         except Exception as e:
-            logger.error(f"Cant perform operation, Caused by: {e}")
+            logger.error(f"Can't perform operation, Caused by: {e}")
             self.set_status(False)
 
 
@@ -335,6 +340,29 @@ class MainWindow(QMainWindow):
         self.dragging = False
 
 
+def notify_found(bjorn_ip: str):
+    """
+    Sends notifications via Telegram, Discord, and SMTP when a bjorn is found.
+
+    Args:
+        bjorn_ip (str): IP address of the bjorn device.
+    """
+    message = f"🔍 *Bjorn Device Detected!* 🖥️\nIP Address: {bjorn_ip}"
+    subject = "Bjorn Device Detected"
+
+    if settings.telegram:
+        # Send Telegram notification
+        send_telegram_message(message)
+    elif settings.discord:
+        # Send Discord notification
+        send_discord_message(message)
+    elif settings.smtp:
+        # Send SMTP email
+        send_smtp_email(subject, message.replace("🔍 ", "").replace("🖥️\n", "\n"))
+    else:
+        logger.debug("No notification configuration.")
+
+
 class MainThread(threading.Thread):
     """
     Thread to perform checks without launching the GUI.
@@ -361,6 +389,7 @@ class MainThread(threading.Thread):
                     bjorn_ip = socket.gethostbyname("bjorn.home")
                     logger.info(f"Bjorn device is reachable. Bjorn device IP: {bjorn_ip}")
                     self.last_success_time = time.time()
+                    notify_found(bjorn_ip)
                 except socket.gaierror:
                     logger.warning("Bjorn device is not reachable.")
 
@@ -394,12 +423,12 @@ def main():
     args = parse_arguments()
     configure_logger(args.log_level)
 
-    timeout = args.timeout if args.timeout else settings.TIMEOUT
+    timeout = args.timeout if args.timeout else settings.timeout
 
     required_files = [BJORN_ICON, BJORN_IMAGE, BJORN_BACKGROUND, BJORN_SOUND]
     for file in required_files:
         if not os.path.exists(file):
-            logger.error(f"File: {file} doesnt exist")
+            logger.error(f"File: {file} doesn't exist")
             return
 
     app = QApplication(sys.argv)
@@ -424,7 +453,7 @@ def main():
             window.show()
             app.exec()
         except Exception as e_gui:
-            logger.error(f"Cant perform operation, Caused by: {e_gui}")
+            logger.error(f"Can't perform operation, Caused by: {e_gui}")
         finally:
             end_time = time.time()
             time_elapsed = end_time - start_time

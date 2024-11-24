@@ -2,14 +2,12 @@
 # .github/workflows/version-controller.yml
 
 name: Version Controller
-
 on:
   push:
     branches:
       - dev
       - test
       - main
-
 jobs:
   version-controller:
     runs-on: ubuntu-latest

@@ -19,10 +19,10 @@ TYPE_MAPPING = {
     "feat": "✨",
     "fix": "🐛",
     "docs": "📝",
-    "style": "💄",
+    "style": "🎨",
     "refactor": "♻️",
     "perf": "⚡️",
-    "test": "✅",
+    "test": "🧪",
     "chore": "🔧",
 }
 

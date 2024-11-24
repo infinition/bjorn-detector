@@ -1,4 +1,4 @@
-<!-- ⚠️⚠️⚠️ Please ensure you have read the CONTRIBUTING document before opening a Pull Request ⚠️⚠️⚠️ -->
+⚠️⚠️⚠️ Please ensure you have read the [CONTRIBUTING](../CONTRIBUTING.md) document before opening a Pull Request ⚠️⚠️⚠️
 
 ## 📝 Description
 
@@ -12,11 +12,12 @@ Please delete options that are not relevant.
 
 - [ ] 🐛 **Bug Fix:** A non-breaking change which fixes an issue
 - [ ] ✨ **New Feature:** A non-breaking change which adds functionality
-- [ ] 🛠️ **Refactor:** A code change that neither fixes a bug nor adds a feature
-- [ ] 📚 **Documentation:** Updates to documentation
+- [ ] ♻️ **Refactor:** A code change that neither fixes a bug nor adds a feature
+- [ ] 📝 **Documentation:** Updates to documentation
 - [ ] 🎨 **Style:** Changes that do not affect the meaning of the code (white-space, formatting, etc.)
 - [ ] 🧪 **Tests:** Adding or updating tests
 - [ ] 🔧 **Chore:** Maintenance tasks or other changes that don’t modify src or test files
+- [ ] ⚡️ **Perf:** Performance enhancements
 
 ## 🧪 How Has This Been Tested?
 
@@ -60,3 +61,9 @@ Add any additional information or context that might be helpful for reviewers.
 - [ ] I have added tests that prove my fix is effective or that my feature works.
 - [ ] New and existing unit tests pass locally with my changes.
 - [ ] My changes need corresponding changes to documentation.
+
+--
+
+**Owners and Contributors message**
+
+_This is an open-source project. Thank you for your contribution; we really appreciate it._
