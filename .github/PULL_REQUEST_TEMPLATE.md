@@ -8,7 +8,7 @@ Fixes # (issue)
 
 ## 🔧 Type of Change
 
-Please delete options that are not relevant.
+Please check all topics related to your request.
 
 - [ ] 🐛 **Bug Fix:** A non-breaking change which fixes an issue
 - [ ] ✨ **New Feature:** A non-breaking change which adds functionality
@@ -53,6 +53,7 @@ Add any additional information or context that might be helpful for reviewers.
 
 ## ✅ Checklist
 
+- [ ] I'm pushing to `dev` branch, DEV.
 - [ ] My code follows the code style of this project.
 - [ ] I have performed a self-review of my own code.
 - [ ] I have commented my code including docstrings, particularly in hard-to-understand areas.
@@ -60,7 +61,7 @@ Add any additional information or context that might be helpful for reviewers.
 - [ ] My changes generate no new warnings.
 - [ ] I have added tests that prove my fix is effective or that my feature works.
 - [ ] New and existing unit tests pass locally with my changes.
-- [ ] My changes need corresponding changes to documentation.
+- [ ] My changes need corresponding changes to documentation @JuanVilla424.
 
 --
 

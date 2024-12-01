@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
 ![Python3](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
-![Status](https://img.shields.io/badge/Status-Development-blue.svg)
+![Status](https://img.shields.io/badge/Status-Stable-green.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Reddit](https://img.shields.io/badge/Reddit-Bjorn__CyberViking-orange?style=for-the-badge&logo=reddit)](https://www.reddit.com/r/Bjorn_CyberViking)
@@ -90,13 +90,65 @@ The red dot is moving around the radar while he looks for Bjorn.
    pip install -r requirements.txt
    ```
 
-   - Deactivate the Virtual Environment
+   - or if u prefer use poetry:
 
-   When you're done, deactivate the environment:
+     ```bash
+     pip install poetry
+     poetry lock
+     poetry install
+     ```
 
-   ```bash
-    deactivate
-   ```
+     - When you're done, deactivate the environment:
+
+       ```bash
+       deactivate
+       ```
+
+## ⚙️ Configuration
+
+**Environment Variables**:
+
+Create a `.env` file from `.env.example` file in the project root directory and populate it with the following variables:
+
+```bash
+cp .env.example .env
+```
+
+...
+
+```bash
+# Global Config
+TIMEOUT=50
+
+# Telegram
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_telegram_chat_id
+
+# Discord
+DISCORD_WEBHOOK_URL=your_discord_webhook_url
+
+# SMTP
+SMTP_SERVER=smtp.example.com
+SMTP_PORT=587
+SMTP_USERNAME=your_smtp_username
+SMTP_PASSWORD=your_smtp_password
+SMTP_FROM_EMAIL=from@example.com
+SMTP_TO_EMAIL=to@example.com
+```
+
+- Descriptions:
+  - TIMEOUT: The duration in seconds the application waits before determining that the bjorn device is unreachable.
+  - TELEGRAM_BOT_TOKEN: The token for your Telegram bot, which allows the application to send messages via Telegram.
+  - TELEGRAM_CHAT_ID: The unique identifier for the Telegram chat where notifications will be sent.
+  - DISCORD_WEBHOOK_URL: The webhook URL for your Discord channel, enabling the application to post messages to Discord.
+  - SMTP_SERVER: The address of your SMTP server used for sending emails.
+  - SMTP_PORT: The port number of your SMTP server (commonly 587 for TLS or 465 for SSL).
+  - SMTP_USERNAME: The username for authenticating with your SMTP server.
+  - SMTP_PASSWORD: The password for authenticating with your SMTP server.
+  - SMTP_FROM_EMAIL: The email address that will appear as the sender of the emails.
+  - SMTP_TO_EMAIL: The email address that will receive the notifications.
+
+Note: All env vars are _optionals_ but inclusive between prefixes [TELEGRAM_, DISCORD_, SMTP_].
 
 ## 🚀 Usage
 

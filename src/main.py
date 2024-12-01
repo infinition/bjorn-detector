@@ -23,6 +23,8 @@ from PyQt6.QtCore import (
 from PyQt6.QtGui import QPainter, QColor, QAction, QPixmap, QIcon
 from PyQt6.QtMultimedia import QSoundEffect
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QMenu, QLabel
+from charset_normalizer.md__mypyc import exports
+
 from src.config import settings
 
 # Import notification functions
@@ -350,15 +352,17 @@ def notify_found(bjorn_ip: str):
     message = f"🔍 *Bjorn Device Detected!* 🖥️\nIP Address: {bjorn_ip}"
     subject = "Bjorn Device Detected"
 
-    if settings.telegram:
+    if settings.telegram_chat_id and settings.telegram_bot_token:
         # Send Telegram notification
-        send_telegram_message(message)
-    elif settings.discord:
+        send_telegram_message(message, "Bjorn Bot")
+    elif settings.discord_webhook_url:
         # Send Discord notification
-        send_discord_message(message)
-    elif settings.smtp:
+        send_discord_message(message, "no-reply@bjorn.bot")
+    elif settings.smtp_server and settings.smtp_port:
         # Send SMTP email
-        send_smtp_email(subject, message.replace("🔍 ", "").replace("🖥️\n", "\n"))
+        send_smtp_email(
+            subject, message.replace("🔍 ", "").replace("🖥️\n", "\n"), "no-reply@bjorn.bot"
+        )
     else:
         logger.debug("No notification configuration.")
 
@@ -452,6 +456,10 @@ def main():
             window.activity_occurred.connect(timer.stop)
             window.show()
             app.exec()
+        except KeyboardInterrupt:
+            logger.info("SIGTERM Signal Received...")
+            app.closeAllWindows()
+            sys.exit(0)
         except Exception as e_gui:
             logger.error(f"Can't perform operation, Caused by: {e_gui}")
         finally:
