@@ -33,8 +33,8 @@
 
 ## 🧩 Extensibility
 
-- **Evolution**: The main purpose of Bjorn is to gain new actions and extend his arsenal over time.
-- **Contribution**: It's up to the user to develop new actions and add them to the project.
+- **Evolution**: The main purpose of Bjorn Detectors locates **Bjorn**.
+- **Contribution**: It's up to the user to develop new features and add them to the project.
 
 ## 🔦 Development Status
 
