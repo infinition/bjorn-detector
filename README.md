@@ -19,6 +19,7 @@ The red dot is moving around the radar while he looks for Bjorn.
 
 - [Features](#-features)
 - [Installation](#-installation)
+- [Configuration](#-configuration)
 - [Usage](#-usage)
 - [Logging](#-logging)
 - [License](#-license)
