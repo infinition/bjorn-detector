@@ -17,6 +17,7 @@
   - [Installation](#-installation)
   - [Environment Setup](#-environment-setup)
   - [Pre-Commit Hooks](#-pre-commit-hooks)
+  - [Extra Steps](#-extra-steps)
 - [License](#-license)
 
 ## 📔 Educational Aspects
