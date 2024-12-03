@@ -1,4 +1,4 @@
-## [Unreleased] - 2024-11-21
+## [Unreleased] - 2024-12-03
 
 ### Other Changes
 
@@ -26,3 +26,9 @@
 - fix(core): fix chore workflow error libpulse0
 - fix(core): fix chore workflow error windll exec on linux
 - style(core): added extra linux libs to readme
+- chore(core): added initial automations
+- 🔧 chore(core): added initial icon layer
+- 💄 style(core): added non-gui docs
+- ✨ feat(core): added initial notifications utils
+- ✨ feat(core): added notification options and headless mode non-gui
+- 📝 docs(core): added configuration index link

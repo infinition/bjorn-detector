@@ -63,7 +63,7 @@ repos:
         always_run: true
         pass_filenames: false
         language: system
-# Manual due to error in no semantic tags yet
+# Manual due to error. Pre-commit hooks shows changes even when no change made to changelog, seems to be a script error.
 #      - id: generate-changelog
 #        name: generate-changelog
 #        entry: python scripts/generate_changelog/main.py --log-level=INFO
