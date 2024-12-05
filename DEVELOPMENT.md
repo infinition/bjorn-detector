@@ -190,6 +190,8 @@ pre-commit run --all-files
      scoop install hadolint
      ```
 
+**Make sure you read [Versioning](VERSIONING.md) to know bout correct commit message convention.**
+
 ---
 
 ## 📜 License
