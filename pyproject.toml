@@ -56,7 +56,7 @@ exclude = '''
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=app --cov-report=xml:coverage.xml --cov-report=term"
+addopts = "--cov=src --cov-report=xml:coverage.xml --cov-report=term"
 testpaths = ["tests"]
 
 [tool.isort]
