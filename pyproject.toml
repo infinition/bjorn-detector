@@ -11,7 +11,7 @@ package-mode = false
 python = "^3.9"
 setuptools = "^75.2.0"
 idna="^3.0"
-certifi="^2024.8.30"
+certifi="^2025.6.15"
 bump2version="^1.0.0"
 PyQt6="^6.7.0"
 pydantic = { version = ">=2.9.1" }
