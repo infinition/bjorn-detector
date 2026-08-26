@@ -9,7 +9,7 @@
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord)](https://discord.com/invite/B3ZH9taVfT)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/182f82f0-5c3a-48a9-a75e-37b9cfa2263a" alt="ezgif-1-a310f5fe8f" width="160">
+  <img src=".github/bjorn-detector.gif" alt="bjorn-detector icon" width="160" />
 </p>
 
 **Bjorn Detector** detects [Bjorn](https://github.com/infinition/bjorn) device on the local network, displays its IP address, and allows you to initiate an SSH session with a single click on Bjorn Icon.
